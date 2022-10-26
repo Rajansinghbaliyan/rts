@@ -1,7 +1,7 @@
 import {Child, ChildAsFc} from "./Child";
-import {useState} from "react";
+import React, {ReactElement, useState} from "react";
 
-const Parent = () => {
+const Parent:React.FC = (): ReactElement => {
 
     const [childTimes, setChildTimes] = useState(0);
     const [childFcTimes, setChildFcTimes] = useState(0);
@@ -17,7 +17,9 @@ const Parent = () => {
     }
     return <>
         <Child color={'red'} onClick={onClickHandlerChild} />
-        <ChildAsFc color={'black'} onClick={onClickHandlerChildAsFc}/>
+        <ChildAsFc color={'black'} onClick={onClickHandlerChildAsFc}>
+            <button>Clicked</button>
+        </ChildAsFc>
     </>
 }
 
