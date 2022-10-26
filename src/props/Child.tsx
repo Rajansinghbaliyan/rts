@@ -13,8 +13,8 @@ export const Child = ({color, onClick}: ChildProps): ReactElement => {
         <button onClick={onClick}>Click Me!</button>
     </div>;
 }
-// @ts-ignore
-export const ChildAsFc: React.FC<ChildProps> = ({color, onClick, children}): React.ReactNode => {
+
+export const ChildAsFc: React.FC<ChildProps> = ({color, onClick, children}): ReactElement => {
     return <div>
         <h1>From the functional components</h1>
         <span>color is {color}</span>
