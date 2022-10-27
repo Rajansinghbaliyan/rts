@@ -1,22 +1,23 @@
-import React, {ChangeEvent, ReactElement, useState} from "react";
+import React, {ChangeEvent, ReactElement, useEffect, useRef, useState} from "react";
 
-const PartyList = (): ReactElement => {
-    const initialState: string[] = [];
-    const [list, setList] = useState(initialState);
+const PartyList: React.FC = (): ReactElement => {
+    const [list, setList] = useState<string[]>([]);
     const [inputValue, setInputValue] = useState("");
 
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const  handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    useEffect(() => {
+        inputRef.current?.focus()
+    }, [])
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value;
         setInputValue(value);
     }
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
         event.preventDefault();
-        setList(prevState => {
-            prevState.push(inputValue);
-            return [...prevState];
-        })
+        setList(prevState => [...prevState, inputValue]);
         setInputValue("");
     }
 
@@ -27,7 +28,7 @@ const PartyList = (): ReactElement => {
         </ul>
 
         <form>
-            <input value={inputValue} onChange={handleChange}/>
+            <input ref={inputRef} value={inputValue} onChange={handleChange}/>
             <button type={"submit"} onClick={handleClick}>Add</button>
         </form>
 
