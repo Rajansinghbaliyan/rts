@@ -1,45 +1,36 @@
-import React, {
-    ChangeEvent,
-    ChangeEventHandler, Dispatch,
-    MouseEventHandler,
-    ReactElement,
-    ReactEventHandler,
-    useState
-} from "react";
+import React, {ChangeEvent, ReactElement, useState} from "react";
 
-const PartyList: React.FC = (): ReactElement => {
-    let initailState: string[] = [];
-    const [list, setList] = useState(initailState);
+const PartyList = (): ReactElement => {
+    const initialState: string[] = [];
+    const [list, setList] = useState(initialState);
     const [inputValue, setInputValue] = useState("");
 
 
-    const handleChangeEvent = (event: ChangeEvent<HTMLInputElement>): void => {
+    const  handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value;
         setInputValue(value);
     }
 
-    const handleOnClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
         event.preventDefault();
         setList(prevState => {
-            const state = [...prevState];
-            state.push(inputValue);
-            return state;
+            prevState.push(inputValue);
+            return [...prevState];
         })
         setInputValue("");
-    };
+    }
 
     return <>
-        <h1>Guest List:</h1>
+        <h1>Guest List</h1>
         <ul>
-            {list.map((value, index) =>
-                <li key={index + value}>{value}</li>
-            )}
+            {list.map((value, index) => <li key={value + index}>{value}</li>)}
         </ul>
 
         <form>
-        <input type={"text"} value={inputValue} onChange={handleChangeEvent}/>
-        <button onClick={handleOnClick} type={"submit"}>Add</button>
+            <input value={inputValue} onChange={handleChange}/>
+            <button type={"submit"} onClick={handleClick}>Add</button>
         </form>
+
     </>
 }
 
